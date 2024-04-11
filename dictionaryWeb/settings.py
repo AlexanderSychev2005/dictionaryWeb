@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'word',
+    'language',
+    'dictionary',
+    'translation'
 ]
 
 MIDDLEWARE = [
@@ -89,10 +93,10 @@ WSGI_APPLICATION = 'dictionaryWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dictionaryWeb',
+        'NAME': 'dictionaryApp',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': 'pgdb',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
