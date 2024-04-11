@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'dictionaryWeb.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASE = "simpledbmamager"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
