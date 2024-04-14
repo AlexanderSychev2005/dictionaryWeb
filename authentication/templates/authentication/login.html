@@ -1,0 +1,27 @@
+{% extends "authentication/base.html" %}
+
+{% block head %}
+    <title>Log In</title>
+{% endblock %}
+
+{% block body %}
+        <form method="post">
+            <div class="container">
+                <h1 id="title">Log In</h1>
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li id="message" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <h2 id="error">{{error}}</h2>
+                {% endif %}
+
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Log In</button> <br>
+            </div>
+        </form>
+{% endblock %}

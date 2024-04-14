@@ -32,9 +32,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = 'login/'
 # Application definition
-
+AUTH_USER_MODEL = 'users.CustomUser'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'word',
     'language',
     'dictionary',
-    'translation'
+    'translation',
+    'authentication',
+    'users'
 ]
 
 MIDDLEWARE = [
