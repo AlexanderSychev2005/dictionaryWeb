@@ -73,9 +73,11 @@
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">{{ dictionary.name}}</div>
                                 {{dictionary.source_language}} -> {{dictionary.target_language}}
+
                         </div>
                         </a>
                          <a href="{% url 'dictionary:delete_dict' dictionary.id %}"><button class="btn btn-primary">Delete</button></a>
+
                     </li>
                 <br>
             {% endfor %}

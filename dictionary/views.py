@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Dictionary
-from .forms import DictionaryForm
+from .forms import DictionaryForm, DictionaryEditForm
+from django.contrib.auth.decorators import user_passes_test
+
+
+def is_admin_user(user):
+    return user.is_admin
 
 
 # Create your views here.
@@ -18,6 +23,7 @@ def view_dict(request, dict_id):
                   )
 
 
+@user_passes_test(is_admin_user)
 def delete_dict(request, dict_id):
     dictionary = Dictionary.objects.get(pk=dict_id)
     if request.method == 'POST':
@@ -26,7 +32,8 @@ def delete_dict(request, dict_id):
     return render(request, 'dictionary/delete_dict.html')
 
 
-def add(request):
+@user_passes_test(is_admin_user)
+def add_dict(request):
     if request.method == 'POST':
         form = DictionaryForm(request.POST)
         if form.is_valid():
@@ -36,5 +43,21 @@ def add(request):
     else:
         form = DictionaryForm()
     return render(request, "dictionary/add.html", {
-        "form": form
+        'form': form
+    })
+
+
+@user_passes_test(is_admin_user)
+def edit_dict(request, dict_id):
+    dictionary = Dictionary.objects.get(pk=dict_id)
+    if request.method == 'POST':
+        form = DictionaryEditForm(request.POST, instance=dictionary)
+        if form.is_valid():
+            form.save()
+            return redirect("authentication:index")
+
+    else:
+        form = DictionaryEditForm(instance=dictionary)
+    return render(request, 'dictionary/edit.html', {
+        'form': form
     })

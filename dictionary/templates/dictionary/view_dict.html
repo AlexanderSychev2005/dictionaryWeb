@@ -37,7 +37,9 @@
                 <h1>Dictionary: "{{dictionary.name}}"</h1>
             </div>
             <div class="col">
+                <a href="{% url 'dictionary:edit_dict' dictionary.id %}"><button class="btn btn-primary">Update</button></a>
                 <a href="{% url 'dictionary:view_dict' dictionary.id %}"><button class="btn btn-primary">All words</button></a>
+
             </div>
 
         </div>
