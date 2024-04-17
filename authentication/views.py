@@ -7,6 +7,8 @@ from .forms import UserLoginForm
 from django.contrib import messages
 from dictionary.models import Dictionary
 from language.models import Language
+from users.models import CustomUser
+
 
 # Create your views here.
 @login_required
@@ -21,7 +23,8 @@ def index_view(request):
     if source_language and target_language:
         source_language_id = Language.objects.get(name=source_language).id
         target_language_id = Language.objects.get(name=target_language).id
-        dictionaries = Dictionary.objects.filter(source_language_id=source_language_id, target_language_id=target_language_id)
+        dictionaries = Dictionary.objects.filter(source_language_id=source_language_id,
+                                                 target_language_id=target_language_id)
     if source_language:
         source_language_id = Language.objects.get(name=source_language).id
         dictionaries = Dictionary.objects.filter(source_language_id=source_language_id)
@@ -30,8 +33,9 @@ def index_view(request):
         dictionaries = Dictionary.objects.filter(target_language_id=target_language_id)
     else:
         dictionaries = Dictionary.objects.all()
-
-    print(source_language, target_language)
+    if CustomUser.is_admin_user(request.user):
+        return render(request, "authentication/index_admin.html",
+                      {"dictionaries": dictionaries})
 
     return render(request, "authentication/index.html",
                   {"dictionaries": dictionaries})
