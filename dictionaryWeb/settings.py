@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'djangoviz',
     'schema_graph',
     'django_extensions',
+    'django_select2',
 ]
 GRAPH_MODELS = {
   'all_applications': True,
@@ -150,3 +151,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTOCOMPLETE_WIDGETS = [
+    'django_autocomplete.widgets.SelectMultipleAutocompleteWidget',
+]

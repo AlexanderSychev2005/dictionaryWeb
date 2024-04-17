@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Dictionary
+from .forms import DictionaryForm
 
 
 # Create your views here.
@@ -15,3 +16,25 @@ def view_dict(request, dict_id):
                   {'dictionary': dictionary,
                    'words': words}
                   )
+
+
+def delete_dict(request, dict_id):
+    dictionary = Dictionary.objects.get(pk=dict_id)
+    if request.method == 'POST':
+        dictionary.delete()
+        return redirect("authentication:index")
+    return render(request, 'dictionary/delete_dict.html')
+
+
+def add(request):
+    if request.method == 'POST':
+        form = DictionaryForm(request.POST)
+        if form.is_valid():
+            dictionary = form.save()
+            return redirect("authentication:index")
+
+    else:
+        form = DictionaryForm()
+    return render(request, "dictionary/add.html", {
+        "form": form
+    })
