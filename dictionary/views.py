@@ -54,7 +54,7 @@ def edit_dict(request, dict_id):
         form = DictionaryEditForm(request.POST, instance=dictionary)
         if form.is_valid():
             form.save()
-            return redirect("authentication:index")
+            return redirect(f'dictionary:view_dict', dict_id=dict_id)
 
     else:
         form = DictionaryEditForm(instance=dictionary)
