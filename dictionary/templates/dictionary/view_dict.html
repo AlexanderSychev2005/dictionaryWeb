@@ -6,7 +6,11 @@
         .btn-primary {
             margin-top: 10px;
         }
+        .link-offset-2 {
+            color: #000000;
+        }
     </style>
+
 {% endblock %}
 
 
@@ -64,6 +68,7 @@
                                         {% endif %}
                                     {% endfor %}
                             </div>
+                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:delete_word' word.id %}"><button class="btn btn-primary">Delete</button></a>
                         </li>
                     </a><br>
                 {% endfor %}
