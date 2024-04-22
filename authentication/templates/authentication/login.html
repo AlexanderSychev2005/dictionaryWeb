@@ -8,12 +8,39 @@
             margin: 50px auto;
             text-align: center;
         }
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        .errorlist {
+            text-align: center;
+            margin-bottom: 20px;
+            color: red;
+        }
+
+        .error {
+            text-align: center;
+            margin-bottom: 20px;
+            color: red;
+        }
+
+        .success {
+            text-align: center;
+            margin-bottom: 20px;
+            color: green;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
-        <form method="post">
+
             <div class="container">
+                <form method="post">
                 <h1 id="title">Log In</h1>
                 {% if messages %}
                     <ul class="messages">
@@ -28,7 +55,9 @@
 
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Log In</button> <br>
+                <button type="submit" class="btn btn-primary">Log In</button> <br><br>
+             </form>
+             <a href="{% url 'authentication:register' %}"><button class="btn btn-primary">Register</button></a>
             </div>
-        </form>
+
 {% endblock %}

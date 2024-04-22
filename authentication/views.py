@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserRegistrationForm
 from django.contrib import messages
 from dictionary.models import Dictionary
 from language.models import Language
@@ -66,3 +66,17 @@ def login_view(request):
     else:
         form = UserLoginForm()
     return render(request, "authentication/login.html", {'form': form})
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            if user:
+                messages.success(request, 'Registration was successful!')
+                return redirect("authentication:login")
+
+
+    form = UserRegistrationForm()
+    return render(request, "authentication/registration.html", {'form': form})

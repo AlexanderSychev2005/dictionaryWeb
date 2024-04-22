@@ -16,7 +16,11 @@ def view_dict(request, dict_id):
     search_query = request.GET.get('search', '')
     if search_query:
         words = words.filter(text__icontains=search_query)
-
+    if request.user.is_admin:
+        return render(request, 'dictionary/view_dict_admin.html',
+                      {'dictionary': dictionary,
+                       'words': words}
+                      )
     return render(request, 'dictionary/view_dict.html',
                   {'dictionary': dictionary,
                    'words': words}
