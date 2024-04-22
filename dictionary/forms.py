@@ -1,10 +1,11 @@
 from django import forms
 from .models import Dictionary
 from django_select2 import forms as s2forms
-
 from word.models import Word
+
+
 class WordsWidget(s2forms.ModelSelect2MultipleWidget):
-    search_fields = ('text',)
+    search_fields = ('text__icontains',)
 
 
 class DictionaryForm(forms.ModelForm):
@@ -20,6 +21,7 @@ class DictionaryForm(forms.ModelForm):
         widgets = {
             "words": WordsWidget,
         }
+
 
 class DictionaryEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -39,4 +41,3 @@ class DictionaryEditForm(forms.ModelForm):
         widgets = {
             "words": WordsWidget,
         }
-
