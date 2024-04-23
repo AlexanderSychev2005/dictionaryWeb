@@ -28,8 +28,6 @@ class UserRegistrationForm(UserCreationForm):
         Custom validation to check for unique email addresses.
         """
         email = self.cleaned_data['email']
-        print(email)
-        print(CustomUser.objects.filter(email=email).exists())
         if CustomUser.objects.filter(email=email).exists():
             raise ValidationError("Email address already exists. Please choose a different one.")
         return email
