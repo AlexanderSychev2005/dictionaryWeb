@@ -77,6 +77,6 @@ def register_view(request):
                 messages.success(request, 'Registration was successful!')
                 return redirect("authentication:login")
 
-
-    form = UserRegistrationForm()
+    else:
+        form = UserRegistrationForm()
     return render(request, "authentication/registration.html", {'form': form})
