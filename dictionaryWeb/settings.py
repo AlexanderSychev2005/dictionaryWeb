@@ -154,10 +154,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTOCOMPLETE_WIDGETS = [
     'django_autocomplete.widgets.SelectMultipleAutocompleteWidget',
 ]
-
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # SMTP Configuration
 # We are using mailgun for sending emails.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_USE_SSL = bool(os.getenv('EMAIL_USE_SSL'))
