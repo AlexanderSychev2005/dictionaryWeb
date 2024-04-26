@@ -1,9 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, redirect
-from .forms import UserLoginForm, UserRegistrationForm
+from django.views.generic import UpdateView
+
+from .forms import UserLoginForm, UserRegistrationForm, ProfileUserForm, PasswordChangeForm
 from django.contrib import messages
 from dictionary.models import Dictionary
 from language.models import Language
@@ -80,3 +84,25 @@ def register_view(request):
     else:
         form = UserRegistrationForm()
     return render(request, "authentication/registration.html", {'form': form})
+
+
+class ProfileUser(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = ProfileUserForm
+    template_name = 'authentication/profile.html'
+    # extra_context = {'title': 'Profile'}
+
+    def get_success_url(self):
+        return reverse_lazy('authentication:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class UserPasswordChange(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy("authentication:password_change_done")
+    template_name = 'authentication/password_change_form.html'
+
+
+

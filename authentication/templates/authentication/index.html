@@ -41,7 +41,7 @@
                       </div>
                   </li>
               </ul>
-                <a class="nav-link active", style="margin-right: 1%">{{request.user.username}}</a>
+                <a href="{% url 'authentication:profile' %}" class="nav-link active", style="margin-right: 1%">{{request.user.username}}</a>
               <form method="post">
 
                 {% csrf_token %}
