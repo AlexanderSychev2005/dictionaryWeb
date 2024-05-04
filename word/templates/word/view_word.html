@@ -1,13 +1,16 @@
-{% extends "dictionary/base.html" %}
+{% extends "word/base.html" %}
 
 {% block head %}
-    <title>Dictionaries</title>
+    <title>Words</title>
     <style>
         .btn-primary {
             margin-top: 10px;
         }
         .link-offset-2 {
             color: #000000;
+        }
+        .buttons {
+            margin-left: auto;
         }
     </style>
 
@@ -29,7 +32,8 @@
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
               </ul>
-              <form class="d-flex" action="{% url 'dictionary:view_dict' dictionary.id %}" method="get">
+
+              <form class="d-flex" action="{% url 'word:view_word' word.id %}" method="get">
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
@@ -38,34 +42,33 @@
         </nav>
         <div class="row">
             <div class="col">
-                <h1>Dictionary: "{{dictionary.name}}"</h1>
+                <h1>Word: "{{word.text}}"</h1>
             </div>
+
             <div class="col">
-                <a href="{% url 'dictionary:view_dict' dictionary.id %}"><button class="btn btn-primary">All words</button></a>
+                <a href="{% url 'word:view_word' word.id %}"><button class="btn btn-primary">All translations</button></a>
+                {% if request.user.is_admin%}
+                    <a href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
+                    <a href=""><button class="btn btn-primary">Create translation</button></a>
+                {% endif %}
             </div>
 
         </div>
-        <h2>Description</h2>
-        <p> {{dictionary.description}}</p>
+        <h2>Translations:</h2>
+
         <ul class="list-group">
-                {% for word in words %}
-                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:view_word' word.id %}">
+                {% for translation in translations %}
+                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="">
                         <li class="list-group-item d-flex justify-content-between ">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold">{{word}}</div>
-                                    {% for translation in word.translations.all %}
-                                        {{translation.text}}
-                                        {% if forloop.last %}
-                                            {% if not word.translations.all %}
-                                                .
-                                            {% else %}
-                                                .
-                                            {% endif %}
-                                        {% else %}
-                                            ,
-                                        {% endif %}
-                                    {% endfor %}
+                                <div class="fw-bold">{{translation}}</div>
                             </div>
+                            {% if request.user.is_admin%}
+                                <div class="buttons">
+                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
+                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:delete_word' word.id %}"><button class="btn btn-primary">Delete</button></a>
+                                </div>
+                            {% endif %}
                         </li>
                     </a><br>
                 {% endfor %}

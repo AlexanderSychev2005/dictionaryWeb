@@ -56,7 +56,7 @@
         <p> {{dictionary.description}}</p>
         <ul class="list-group">
                 {% for word in words %}
-                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'dictionary:view_dict' dictionary.id %}">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:view_word' word.id %}">
                         <li class="list-group-item d-flex justify-content-between ">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">{{word}}</div>
@@ -74,7 +74,6 @@
                                     {% endfor %}
                             </div>
                             <div class="buttons">
-                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
                                 <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:delete_word' word.id %}"><button class="btn btn-primary">Delete</button></a>
                             </div>
                         </li>
