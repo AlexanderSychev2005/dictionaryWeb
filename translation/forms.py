@@ -12,13 +12,11 @@ class TranslationForm(forms.ModelForm):
 
         initial_word = Word.objects.get(id=word_id)
 
-        self.fields['source_word'] = forms.ModelChoiceField(queryset=Word.objects, disabled=True)
-        self.fields['source_word'].initial = (initial_word.id, str(initial_word))
+        self.fields['source_word'].initial = initial_word
 
     class Meta:
         model = Translation
         fields = '__all__'
-        read_only_fields = ['source_word']
 
 
 class TranslationEditForm(forms.ModelForm):
@@ -28,8 +26,9 @@ class TranslationEditForm(forms.ModelForm):
         instance = kwargs.get('instance')
         if instance:
             self.fields['text'].initial = instance.text
+            self.fields['source_word'].disabled = True
+            self.fields['target_language'].disabled = True
 
     class Meta:
         model = Translation
-        fields = ['source_word', 'text']
-        read_only_fields = ['source_word']
+        fields = '__all__'

@@ -40,11 +40,12 @@ def delete_translation(request, translation_id):
 @user_passes_test(is_admin_user)
 def update_translation(request, translation_id):
     translation = Translation.objects.get(id=translation_id)
+    print(translation.source_word)
     word_id = translation.source_word.id
 
     if request.method == 'POST':
         form = TranslationEditForm(request.POST, instance=translation)
-        translation.delete()
+        form.save()
         return redirect("word:view_word", word_id=word_id)
     form = TranslationEditForm(instance=translation)
     return render(request, 'translation/edit_translation.html', {
