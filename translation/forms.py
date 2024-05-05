@@ -20,3 +20,16 @@ class TranslationForm(forms.ModelForm):
         fields = '__all__'
         read_only_fields = ['source_word']
 
+
+class TranslationEditForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(TranslationEditForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        if instance:
+            self.fields['text'].initial = instance.text
+
+    class Meta:
+        model = Translation
+        fields = ['source_word', 'text']
+        read_only_fields = ['source_word']

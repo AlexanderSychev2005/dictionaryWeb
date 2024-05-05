@@ -65,8 +65,8 @@
                             </div>
                             {% if request.user.is_admin%}
                                 <div class="buttons">
-                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
-                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:delete_word' word.id %}"><button class="btn btn-primary">Delete</button></a>
+                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'translation:update_translation' translation.id %}"><button class="btn btn-primary">Update</button></a>
+                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'translation:delete_translation' translation.id %}"><button class="btn btn-primary">Delete</button></a>
                                 </div>
                             {% endif %}
                         </li>
