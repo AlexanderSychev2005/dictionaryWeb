@@ -9,12 +9,12 @@ class TranslationsWidget(s2forms.ModelSelect2MultipleWidget):
 
 
 class WordForm(forms.ModelForm):
+    translations = forms.ModelMultipleChoiceField(queryset=Translation.objects, required=False,
+                                                  widget=TranslationsWidget)
+
     class Meta:
         model = Word
         fields = '__all__'
-        widgets = {
-            'translations': TranslationsWidget,
-        }
 
 
 class WordEditForm(forms.ModelForm):

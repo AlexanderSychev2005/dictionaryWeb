@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
+
+from dictionary.models import Dictionary
 from .forms import WordForm, WordEditForm
 from .models import Word
 
@@ -20,14 +22,17 @@ def delete_word(request, word_id):
 
 
 @user_passes_test(is_admin_user)
-def create_word(request):
+def create_word(request, dictionary_id):
+    dictionary = Dictionary.objects.get(id=dictionary_id)
     if request.method == 'POST':
         form = WordForm(request.POST)
         if form.is_valid():
             word = form.save()
+            dictionary.words.add(word)
             return redirect("/")
-    form = WordForm()
-    return render(request, 'word/create_word.html',
+    else:
+        form = WordForm()
+        return render(request, 'word/create_word.html',
                   {'form': form})
 
 

@@ -49,7 +49,7 @@
                 <a href="{% url 'word:view_word' word.id %}"><button class="btn btn-primary">All translations</button></a>
                 {% if request.user.is_admin%}
                     <a href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
-                    <a href=""><button class="btn btn-primary">Create translation</button></a>
+                    <a href="{% url 'translation:create_translation' word.id  %}"><button class="btn btn-primary">Create translation</button></a>
                 {% endif %}
             </div>
 

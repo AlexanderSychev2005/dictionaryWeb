@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include(('authentication.urls', 'authentication'), namespace='authentication')),
     path('dictionary/', include(('dictionary.urls', 'dictionary'), namespace='dictionary')),
     path('word/', include(('word.urls', 'word'), namespace='word')),
+    path('translation/', include(('translation.urls', 'translation'), namespace='translation')),
     path("schema/", Schema.as_view()),
     path("select2/", include("django_select2.urls")),
 ]
