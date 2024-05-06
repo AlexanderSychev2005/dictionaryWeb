@@ -1,0 +1,56 @@
+{% extends 'language/base.html' %}
+
+{% block head %}
+    <title>Languages</title>
+
+{% endblock %}
+
+{% block body%}
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Alex's main</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+              </ul>
+
+              <form class="d-flex" action="{% url 'language:view_languages' %}" method="get">
+                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <h1>All Languages: </h1>
+            </div>
+            <div class="col">
+                <a href="{% url 'language:view_languages' %}"><button class="btn btn-primary">All languages</button></a>
+                <a href="{% url 'language:create_language' %}"><button class="btn btn-primary">Create language</button></a>
+            </div>
+
+        </div>
+        <ul class="list-group">
+                {% for language in languages %}
+                        <li class="list-group-item d-flex justify-content-between ">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{language.name}}</div>
+
+                            </div>
+                            <div class="buttons">
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'language:edit_language' language.id  %}"><button class="btn btn-primary">Update</button></a>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'language:delete_language' language.id %}"><button class="btn btn-primary">Delete</button></a>
+                            </div>
+                        </li>
+                {% endfor %}
+        </ul>
+    </div>
+ {% endblock %}
