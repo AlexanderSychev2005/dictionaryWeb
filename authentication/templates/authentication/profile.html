@@ -9,10 +9,10 @@
             align-items: center;
         }
     </style>
-
  {% endblock %}
 
 {% block body %}
+<div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">Alex's main</a>
@@ -24,12 +24,16 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
+                  <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'language:view_languages' %}">Languages</a>
+                </li>
               </ul>
-
+                <a href="{% url 'authentication:profile' %}" class="nav-link active", style="margin-right: 1%">{{request.user.username}}</a>
+                <a href="{% url 'authentication:logout' %}"><button type="submit" class="btn btn-primary">Log Out</button></a>
             </div>
           </div>
         </nav>
-    <div class="container">
+    
 
         <form  method="post">
             <h1 id="title">Profile</h1>

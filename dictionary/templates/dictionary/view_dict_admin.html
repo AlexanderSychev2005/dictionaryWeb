@@ -17,7 +17,7 @@
 
  {% block body%}
 
-
+    <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">Alex's main</a>
@@ -35,7 +35,7 @@
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
-                <div style="margin: 1%">
+                <div style="margin: 1ch">
                     <a href="{% url 'authentication:profile' %}" class="nav-link active">{{request.user.username}}</a>
                 </div>
 
@@ -52,9 +52,7 @@
                 <a href="{% url 'dictionary:edit_dict' dictionary.id %}"><button class="btn btn-primary">Update</button></a>
                 <a href="{% url 'dictionary:view_dict' dictionary.id %}"><button class="btn btn-primary">All words</button></a>
                 <a href="{% url 'word:create_word' dictionary.id%}"><button class="btn btn-primary">Create word</button></a>
-
             </div>
-
         </div>
         <h2>Description</h2>
         <p> {{dictionary.description}}</p>
