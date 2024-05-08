@@ -45,5 +45,21 @@ class Word(models.Model):
         """
         return list(Word.objects.all())
 
+    def add_translation(self, translation):
+        """
+        Add a translation to the word in database
+        :param translation: translation
+        """
+        self.translations.add(translation)
+        self.save()
+
+    def remove_translation(self, translation):
+        """
+        Remove a translation to the word in database
+        :param translation: translation
+        """
+        self.translations.remove(translation)
+
+
 
 

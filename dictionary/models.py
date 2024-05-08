@@ -44,4 +44,23 @@ class Dictionary(models.Model):
         return True
 
     def get_words(self):
+        """
+        return all words in the dictionary sorted alphabetically
+        """
         return self.words.order_by('text')
+
+    def add_word(self, word):
+        """
+        Add a word to the dictionary in database
+        :param word: word
+        """
+        self.words.add(word)
+        self.save()
+
+    def remove_word(self, word):
+        """
+        Remove a word to the dictionary in database
+        :param word: word
+        """
+        self.words.remove(word)
+
