@@ -29,7 +29,7 @@ def create_word(request, dictionary_id):
         if form.is_valid():
             word = form.save()
             dictionary.words.add(word)
-            return redirect("/")
+            return redirect("dictionary:view_dict", dict_id=dictionary.id)
     else:
         form = WordForm()
         return render(request, 'word/create_word.html',

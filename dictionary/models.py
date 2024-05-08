@@ -10,3 +10,8 @@ class Dictionary(models.Model):
     source_language = models.ForeignKey(Language, related_name='source_dicts', on_delete=models.CASCADE)
     target_language = models.ForeignKey(Language, related_name='target_dicts', on_delete=models.CASCADE)
     words = models.ManyToManyField(Word, related_name='dictionaries')
+
+    class Meta:
+        db_table = 'dictionaries'
+        verbose_name = 'Dictionary'
+        verbose_name_plural = 'Dictionaries'

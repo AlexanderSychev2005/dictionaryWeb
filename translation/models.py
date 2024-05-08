@@ -10,5 +10,10 @@ class Translation(models.Model):
     target_language = models.ForeignKey(Language, on_delete=models.CASCADE, blank=True, null=True)
     text = models.CharField(max_length=100)
 
+    class Meta:
+        db_table = 'translations'
+        verbose_name = 'Translation'
+        verbose_name_plural = 'Translations'
+
     def __str__(self):
         return f"{self.text}"

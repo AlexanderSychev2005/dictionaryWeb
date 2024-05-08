@@ -17,10 +17,6 @@ from users.models import CustomUser
 # Create your views here.
 @login_required
 def index_view(request):
-    if request.method == "POST":
-        logout(request)
-        return HttpResponseRedirect(reverse("authentication:login"))
-
     source_language = request.GET.get("source_language", "")
     target_language = request.GET.get("target_language", "")
 
@@ -37,9 +33,6 @@ def index_view(request):
         dictionaries = Dictionary.objects.filter(target_language_id=target_language_id)
     else:
         dictionaries = Dictionary.objects.all()
-    if CustomUser.is_admin_user(request.user):
-        return render(request, "authentication/index_admin.html",
-                      {"dictionaries": dictionaries})
 
     return render(request, "authentication/index.html",
                   {"dictionaries": dictionaries})
@@ -72,6 +65,11 @@ def login_view(request):
     return render(request, "authentication/login.html", {'form': form})
 
 
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("authentication:login"))
+
+
 def register_view(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -90,6 +88,7 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = 'authentication/profile.html'
+
     # extra_context = {'title': 'Profile'}
 
     def get_success_url(self):
@@ -103,6 +102,3 @@ class UserPasswordChange(PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy("authentication:password_change_done")
     template_name = 'authentication/password_change_form.html'
-
-
-

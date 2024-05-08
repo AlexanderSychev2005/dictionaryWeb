@@ -2,11 +2,16 @@
 
 {% block head %}
     <title>Main Page</title>
+    <style>
+        .link-offset-2 {
+            color: #000000;
+}
+    </style>
 {% endblock %}
 
 
  {% block body%}
-    <div class="container">
+    
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">Alex's main</a>
@@ -43,29 +48,38 @@
                          <a href="/"><button class="btn btn-primary">All dicts</button></a>
                       </div>
                   </li>
+                  {% if request.user.is_admin %}
+                      <li class="nav-item">
+                          <div style="margin-left: 1ch">
+                             <a href="{% url 'dictionary:add_dict' %}"><button class="btn btn-primary">Add new</button></a>
+                          </div>
+                      </li>
+                  {% endif %}
               </ul>
                 <a href="{% url 'authentication:profile' %}" class="nav-link active", style="margin-right: 1%">{{request.user.username}}</a>
-              <form method="post">
+                <a href="{% url 'authentication:logout' %}"><button type="submit" class="btn btn-primary">Log Out</button></a>
 
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Log Out</button>
-              </form>
             </div>
           </div>
         </nav>
+     <div class="container">
         <h1>Welcome, {{request.user.first_name}}</h1>
         <br>
         <ul class="list-group">
             {% for dictionary in dictionaries %}
-                <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'dictionary:view_dict' dictionary.id %}">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'dictionary:view_dict' dictionary.id %}">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">{{ dictionary.name}}</div>
                                 {{dictionary.source_language}} -> {{dictionary.target_language}}
-                        </div>
 
+                        </div>
+                        </a>
+                        {% if request.user.is_admin %}
+                            <a href="{% url 'dictionary:delete_dict' dictionary.id %}"><button class="btn btn-primary">Delete</button></a>
+                        {% endif %}
                     </li>
-                </a><br>
+                <br>
             {% endfor %}
         </ul>
     </div>

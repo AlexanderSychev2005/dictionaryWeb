@@ -3,9 +3,7 @@
 {% block head %}
     <title>Dictionaries</title>
     <style>
-        .btn-primary {
-            margin-top: 10px;
-        }
+
         .link-offset-2 {
             color: #000000;
         }
@@ -19,7 +17,7 @@
 
  {% block body%}
 
-    <div class="container">
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">Alex's main</a>
@@ -37,9 +35,15 @@
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
+                <div style="margin: 1%">
+                    <a href="{% url 'authentication:profile' %}" class="nav-link active">{{request.user.username}}</a>
+                </div>
+
+                <a href="{% url 'authentication:logout' %}"><button type="submit" class="btn btn-primary">Log Out</button></a>
             </div>
           </div>
         </nav>
+     <div class="container">
         <div class="row">
             <div class="col">
                 <h1>Dictionary: "{{dictionary.name}}"</h1>

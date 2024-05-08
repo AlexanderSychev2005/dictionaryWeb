@@ -9,6 +9,11 @@ class Language(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
 
+    class Meta:
+        db_table = 'languages'
+        verbose_name = 'Language'
+        verbose_name_plural = 'Languages'
+
     def __str__(self):
         """
         Magic method is redefined to show information about this Language.
