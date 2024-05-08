@@ -10,17 +10,13 @@ def is_admin_user(user):
 
 # Create your views here.
 def view_dict(request, dict_id):
-    dictionary = Dictionary.objects.get(pk=dict_id)
-    words = dictionary.words.all().order_by('text')
+    dictionary = Dictionary.get_by_id(dict_id)
+    words = dictionary.get_words()
 
     search_query = request.GET.get('search', '')
     if search_query:
         words = words.filter(text__icontains=search_query)
-    if request.user.is_admin:
-        return render(request, 'dictionary/view_dict_admin.html',
-                      {'dictionary': dictionary,
-                       'words': words}
-                      )
+
     return render(request, 'dictionary/view_dict.html',
                   {'dictionary': dictionary,
                    'words': words}
@@ -29,9 +25,8 @@ def view_dict(request, dict_id):
 
 @user_passes_test(is_admin_user)
 def delete_dict(request, dict_id):
-    dictionary = Dictionary.objects.get(pk=dict_id)
     if request.method == 'POST':
-        dictionary.delete()
+        Dictionary.delete_by_id(dict_id)
         return redirect("authentication:index")
     return render(request, 'dictionary/delete_dict.html')
 
@@ -41,9 +36,8 @@ def add_dict(request):
     if request.method == 'POST':
         form = DictionaryForm(request.POST)
         if form.is_valid():
-            dictionary = form.save()
+            form.save()
             return redirect("authentication:index")
-
     else:
         form = DictionaryForm()
     return render(request, "dictionary/add.html", {
@@ -53,7 +47,7 @@ def add_dict(request):
 
 @user_passes_test(is_admin_user)
 def edit_dict(request, dict_id):
-    dictionary = Dictionary.objects.get(pk=dict_id)
+    dictionary = Dictionary.get_by_id(dict_id)
     if request.method == 'POST':
         form = DictionaryEditForm(request.POST, instance=dictionary)
         if form.is_valid():

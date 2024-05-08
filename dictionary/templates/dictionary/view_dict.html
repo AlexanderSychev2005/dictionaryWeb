@@ -3,8 +3,12 @@
 {% block head %}
     <title>Dictionaries</title>
     <style>
+
         .link-offset-2 {
             color: #000000;
+        }
+        .buttons {
+            margin-left: auto;
         }
     </style>
 
@@ -26,24 +30,31 @@
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
               </ul>
+
               <form class="d-flex" action="{% url 'dictionary:view_dict' dictionary.id %}" method="get">
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
-                <a href="{% url 'authentication:profile' %}" class="nav-link active">{{request.user.username}}</a>
+                <div style="margin: 1ch">
+                    <a href="{% url 'authentication:profile' %}" class="nav-link active">{{request.user.username}}</a>
+                </div>
+
                 <a href="{% url 'authentication:logout' %}"><button type="submit" class="btn btn-primary">Log Out</button></a>
             </div>
           </div>
         </nav>
-
+     <div class="container">
         <div class="row">
             <div class="col">
                 <h1>Dictionary: "{{dictionary.name}}"</h1>
             </div>
             <div class="col">
                 <a href="{% url 'dictionary:view_dict' dictionary.id %}"><button class="btn btn-primary">All words</button></a>
+                {% if request.user.is_admin %}
+                    <a href="{% url 'dictionary:edit_dict' dictionary.id %}"><button class="btn btn-primary">Update</button></a>
+                    <a href="{% url 'word:create_word' dictionary.id%}"><button class="btn btn-primary">Create word</button></a>
+                {% endif %}
             </div>
-
         </div>
         <h2>Description</h2>
         <p> {{dictionary.description}}</p>
@@ -66,6 +77,11 @@
                                         {% endif %}
                                     {% endfor %}
                             </div>
+                            {% if request.user.is_admin %}
+                                <div class="buttons">
+                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'word:delete_word' word.id %}"><button class="btn btn-primary">Delete</button></a>
+                                </div>
+                            {% endif %}
                         </li>
                     </a><br>
                 {% endfor %}

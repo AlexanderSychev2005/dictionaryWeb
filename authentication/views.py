@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,6 @@ from .forms import UserLoginForm, UserRegistrationForm, ProfileUserForm, Passwor
 from django.contrib import messages
 from dictionary.models import Dictionary
 from language.models import Language
-from users.models import CustomUser
 
 
 # Create your views here.
@@ -21,18 +20,18 @@ def index_view(request):
     target_language = request.GET.get("target_language", "")
 
     if source_language and target_language:
-        source_language_id = Language.objects.get(name=source_language).id
-        target_language_id = Language.objects.get(name=target_language).id
+        source_language_id = Language.get_by_name(source_language).id
+        target_language_id = Language.get_by_name(target_language).id
         dictionaries = Dictionary.objects.filter(source_language_id=source_language_id,
                                                  target_language_id=target_language_id)
     if source_language:
-        source_language_id = Language.objects.get(name=source_language).id
+        source_language_id = Language.get_by_name(source_language).id
         dictionaries = Dictionary.objects.filter(source_language_id=source_language_id)
     elif target_language:
-        target_language_id = Language.objects.get(name=target_language).id
+        target_language_id = Language.get_by_name(target_language).id
         dictionaries = Dictionary.objects.filter(target_language_id=target_language_id)
     else:
-        dictionaries = Dictionary.objects.all()
+        dictionaries = Dictionary.get_all()
 
     return render(request, "authentication/index.html",
                   {"dictionaries": dictionaries})

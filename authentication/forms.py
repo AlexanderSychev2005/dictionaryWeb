@@ -36,6 +36,7 @@ class UserRegistrationForm(UserCreationForm):
 class ProfileUserForm(forms.ModelForm):
     username = forms.CharField(disabled=True, label='Username', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.CharField(disabled=True, label='Email', widget=forms.TextInput(attrs={'class': 'form-input'}))
+
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'first_name', 'last_name')
@@ -52,5 +53,5 @@ class ProfileUserForm(forms.ModelForm):
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-
+    new_password2 = forms.CharField(label='Confirm New Password',
+                                    widget=forms.PasswordInput(attrs={'class': 'form-input'}))

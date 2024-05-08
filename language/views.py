@@ -8,7 +8,6 @@ from .forms import LanguageForm, LanguageEditForm
 def view_languages(request):
     languages = Language.objects.all()
     search_query = request.GET.get('search', '')
-    print(search_query)
     if search_query:
         languages = languages.filter(name__icontains=search_query)
     return render(request, 'language/view_languages.html',
@@ -26,7 +25,7 @@ def create_language(request):
 
 
 def edit_language(request, language_id):
-    language = Language.objects.get(pk=language_id)
+    language = Language.get_by_id(language_id)
     if request.method == 'POST':
         form = LanguageEditForm(request.POST, instance=language)
         if form.is_valid():
@@ -37,8 +36,7 @@ def edit_language(request, language_id):
 
 
 def delete_language(request, language_id):
-    language = Language.objects.get(pk=language_id)
     if request.method == 'POST':
-        language.delete()
+        Language.delete_by_id(language_id)
         return redirect('language:view_languages')
     return render(request, 'language/delete_language.html')

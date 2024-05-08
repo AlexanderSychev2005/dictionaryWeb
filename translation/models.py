@@ -1,6 +1,5 @@
 from django.db import models
 
-import word.models
 from language.models import Language
 
 
@@ -17,3 +16,28 @@ class Translation(models.Model):
 
     def __str__(self):
         return f"{self.text}"
+
+    @staticmethod
+    def get_by_id(translation_id):
+        """
+        :param translation_id: SERIAL: the id of a Translation to be found in the DB
+        :return: Translation object or None if a translation with such ID does not exist
+        """
+        return Translation.objects.get(id=translation_id) if Translation.objects.filter(id=translation_id) else None
+
+    @staticmethod
+    def delete_by_id(translation_id):
+        """
+        :param translation_id: an id of a translation to be deleted
+        :type translation_id: int
+        :return: True if object existed in the db and was removed or False if it didn't exist
+        """
+        if Translation.get_by_id(translation_id) is None:
+            return False
+        Translation.objects.get(id=translation_id).delete()
+        return True
+
+
+
+
+

@@ -15,6 +15,7 @@ class LanguageEditForm(forms.ModelForm):
         instance = kwargs.pop('instance')
         if instance:
             self.fields['name'].initial = instance.name
+
     class Meta:
         model = Language
         fields = '__all__'

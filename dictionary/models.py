@@ -15,3 +15,33 @@ class Dictionary(models.Model):
         db_table = 'dictionaries'
         verbose_name = 'Dictionary'
         verbose_name_plural = 'Dictionaries'
+
+    @staticmethod
+    def get_by_id(dict_id):
+        """
+        :param dict_id: SERIAL: the id of a Dictionary to be found in the DB
+        :return: dictionary object or None if a dictionary with such ID does not exist
+        """
+        return Dictionary.objects.get(id=dict_id) if Dictionary.objects.filter(id=dict_id) else None
+
+    @staticmethod
+    def get_all():
+        """
+        returns data for json request with QuerySet of all dictionaries
+        """
+        return list(Dictionary.objects.all())
+
+    @staticmethod
+    def delete_by_id(dict_id):
+        """
+        :param dict_id: an id of a dictionary to be deleted
+        :type dict_id: int
+        :return: True if object existed in the db and was removed or False if it didn't exist
+        """
+        if Dictionary.get_by_id(dict_id) is None:
+            return False
+        Dictionary.objects.get(id=dict_id).delete()
+        return True
+
+    def get_words(self):
+        return self.words.order_by('text')

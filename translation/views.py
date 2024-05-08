@@ -13,7 +13,7 @@ def is_admin_user(user):
 
 @user_passes_test(is_admin_user)
 def create_translation(request, word_id):
-    word = Word.objects.get(id=word_id)
+    word = Word.get_by_id(word_id)
     if request.method == 'POST':
         form = TranslationForm(request.POST, word_id=word_id)
         if form.is_valid():
@@ -28,18 +28,18 @@ def create_translation(request, word_id):
 
 @user_passes_test(is_admin_user)
 def delete_translation(request, translation_id):
-    translation = Translation.objects.get(id=translation_id)
+    translation = Translation.get_by_id(translation_id)
     word_id = translation.source_word.id
 
     if request.method == 'POST':
-        translation.delete()
+        Translation.delete_by_id(translation_id)
         return redirect("word:view_word", word_id=word_id)
     return render(request, 'translation/delete_translation.html')
 
 
 @user_passes_test(is_admin_user)
 def update_translation(request, translation_id):
-    translation = Translation.objects.get(id=translation_id)
+    translation = Translation.get_by_id(translation_id)
     word_id = translation.source_word.id
 
     if request.method == 'POST':
