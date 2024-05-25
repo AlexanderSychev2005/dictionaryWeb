@@ -1,7 +1,8 @@
 from django import forms
-from .models import Word
 from django_select2 import forms as s2forms
+
 from translation.models import Translation
+from .models import Word
 
 
 class TranslationsWidget(s2forms.ModelSelect2MultipleWidget):

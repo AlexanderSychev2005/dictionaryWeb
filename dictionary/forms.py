@@ -18,6 +18,7 @@ class DictionaryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DictionaryForm, self).__init__(*args, **kwargs)
         self.fields['words'].required = False
+
     class Meta:
         model = Dictionary
         fields = "__all__"

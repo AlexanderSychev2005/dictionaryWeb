@@ -1,16 +1,16 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView
 
-from .forms import UserLoginForm, UserRegistrationForm, ProfileUserForm, PasswordChangeForm
-from django.contrib import messages
 from dictionary.models import Dictionary
 from language.models import Language
+from .forms import UserLoginForm, UserRegistrationForm, ProfileUserForm, PasswordChangeForm
 
 
 # Create your views here.

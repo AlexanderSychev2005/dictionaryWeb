@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect
 
 from dictionary.models import Dictionary
 from .forms import WordForm

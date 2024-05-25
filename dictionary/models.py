@@ -63,4 +63,3 @@ class Dictionary(models.Model):
         :param word: word
         """
         self.words.remove(word)
-

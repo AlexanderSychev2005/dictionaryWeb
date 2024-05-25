@@ -7,39 +7,46 @@
             text-align: center;
         }
     </style>
- {% endblock %}
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Alex's main</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                  <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'language:view_languages' %}">Languages</a>
-                </li>
-              </ul>
-                <a href="{% url 'authentication:profile' %}" class="nav-link active", style="margin-right: 1%">{{request.user.username}}</a>
-                <a href="{% url 'authentication:logout' %}"><button type="submit" class="btn btn-primary">Log Out</button></a>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Alex's main</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'language:view_languages' %}">Languages</a>
+                        </li>
+                    </ul>
+                    <a href="{% url 'authentication:profile' %}" class="nav-link active" ,
+                       style="margin-right: 1%">{{ request.user.username }}</a>
+                    <a href="{% url 'authentication:logout' %}">
+                        <button type="submit" class="btn btn-primary">Log Out</button>
+                    </a>
+                </div>
             </div>
-          </div>
         </nav>
-    
 
-        <form  method="post">
+
+        <form method="post">
             <h1 id="title">Profile</h1>
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Save</button>
             <hr>
-            <a href="{% url 'authentication:password_change' %}"><button type="button" class="btn btn-primary">Change password</button></a>
+            <a href="{% url 'authentication:password_change' %}">
+                <button type="button" class="btn btn-primary">Change password</button>
+            </a>
         </form>
 
 

@@ -6,9 +6,11 @@
         .btn-primary {
             margin-top: 10px;
         }
+
         .link-offset-2 {
             color: #000000;
         }
+
         .buttons {
             margin-left: auto;
         }
@@ -17,39 +19,48 @@
 {% endblock %}
 
 
- {% block body%}
+{% block body %}
 
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Alex's main</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-              </ul>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Alex's main</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                    </ul>
 
-              <form class="d-flex" action="{% url 'word:view_word' word.id %}" method="get">
-                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+                    <form class="d-flex" action="{% url 'word:view_word' word.id %}" method="get">
+                        <input class="form-control me-2" name="search" type="search" placeholder="Search"
+                               aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-          </div>
         </nav>
         <div class="row">
             <div class="col">
-                <h1>Word: "{{word.text}}"</h1>
+                <h1>Word: "{{ word.text }}"</h1>
             </div>
 
             <div class="col">
-                <a href="{% url 'word:view_word' word.id %}"><button class="btn btn-primary">All translations</button></a>
-                {% if request.user.is_admin%}
-                    <a href="{% url 'word:update_word' word.id %}"><button class="btn btn-primary">Update</button></a>
-                    <a href="{% url 'translation:create_translation' word.id  %}"><button class="btn btn-primary">Create translation</button></a>
+                <a href="{% url 'word:view_word' word.id %}">
+                    <button class="btn btn-primary">All translations</button>
+                </a>
+                {% if request.user.is_admin %}
+                    <a href="{% url 'word:update_word' word.id %}">
+                        <button class="btn btn-primary">Update</button>
+                    </a>
+                    <a href="{% url 'translation:create_translation' word.id %}">
+                        <button class="btn btn-primary">Create translation</button>
+                    </a>
                 {% endif %}
             </div>
 
@@ -57,21 +68,27 @@
         <h2>Translations:</h2>
 
         <ul class="list-group">
-                {% for translation in translations %}
-                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="">
-                        <li class="list-group-item d-flex justify-content-between ">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">{{translation}}</div>
+            {% for translation in translations %}
+                <a class="link-offset-2 link-underline link-underline-opacity-0" href="">
+                    <li class="list-group-item d-flex justify-content-between ">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ translation }}</div>
+                        </div>
+                        {% if request.user.is_admin %}
+                            <div class="buttons">
+                                <a class="link-offset-2 link-underline link-underline-opacity-0"
+                                   href="{% url 'translation:update_translation' translation.id %}">
+                                    <button class="btn btn-primary">Update</button>
+                                </a>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0"
+                                   href="{% url 'translation:delete_translation' translation.id %}">
+                                    <button class="btn btn-primary">Delete</button>
+                                </a>
                             </div>
-                            {% if request.user.is_admin%}
-                                <div class="buttons">
-                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'translation:update_translation' translation.id %}"><button class="btn btn-primary">Update</button></a>
-                                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="{% url 'translation:delete_translation' translation.id %}"><button class="btn btn-primary">Delete</button></a>
-                                </div>
-                            {% endif %}
-                        </li>
-                    </a><br>
-                {% endfor %}
+                        {% endif %}
+                    </li>
+                </a><br>
+            {% endfor %}
         </ul>
     </div>
- {% endblock %}
+{% endblock %}

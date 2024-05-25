@@ -1,8 +1,10 @@
-from django.core.management.base import BaseCommand
 import json
+
+from django.core.management.base import BaseCommand
+
 from dictionary.models import Dictionary
-from word.models import Word
 from translation.models import Translation
+from word.models import Word
 
 
 class Command(BaseCommand):
@@ -26,10 +28,10 @@ class Command(BaseCommand):
             source_word_id = word.id
             dictionary.words.add(word)
             for translation_text in translations:
-                translation= Translation.objects.create(text=translation_text, target_language_id=2, source_word_id=source_word_id)
+                translation = Translation.objects.create(text=translation_text, target_language_id=2,
+                                                         source_word_id=source_word_id)
                 word.translations.add(translation)
             i += 1
-
 
 # class Command(BaseCommand):
 #     help = 'Deletes words and translations imported from JSON file'

@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Language
 
 
@@ -9,4 +10,3 @@ class LanguageAdmin(admin.ModelAdmin):
         ('Name', {'fields': ('name',)}),
     )
     ordering = ('id',)
-

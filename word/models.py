@@ -1,7 +1,7 @@
 from django.db import models
 
-from translation.models import Translation
 from language.models import Language
+from translation.models import Translation
 
 
 # Create your models here.
@@ -59,7 +59,3 @@ class Word(models.Model):
         :param translation: translation
         """
         self.translations.remove(translation)
-
-
-
-

@@ -1,6 +1,8 @@
-from django.db import models
 import datetime
+
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.db import models
+
 
 # Create your models here.
 
@@ -229,5 +231,3 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
-
-

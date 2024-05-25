@@ -7,19 +7,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-}
+        }
     </style>
 
- {% endblock %}
+{% endblock %}
 
 {% block body %}
-        <div class="container">
-            <form  method="post">
-                <h1 id="title">Registration</h1>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Register</button><br><br>
-                <a href="{% url 'authentication:login' %}"><button type="button" class="btn btn-primary">Log In</button></a>
-            </form>
-        </div>
+    <div class="container">
+        <form method="post">
+            <h1 id="title">Registration</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Register</button>
+            <br><br>
+            <a href="{% url 'authentication:login' %}">
+                <button type="button" class="btn btn-primary">Log In</button>
+            </a>
+        </form>
+    </div>
 {% endblock %}

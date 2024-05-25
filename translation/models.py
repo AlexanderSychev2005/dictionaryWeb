@@ -36,8 +36,3 @@ class Translation(models.Model):
             return False
         Translation.objects.get(id=translation_id).delete()
         return True
-
-
-
-
-

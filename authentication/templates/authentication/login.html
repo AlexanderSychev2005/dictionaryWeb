@@ -8,15 +8,17 @@
             margin: 50px auto;
             text-align: center;
         }
+
         ul {
-          list-style: none;
-          padding: 0;
+            list-style: none;
+            padding: 0;
         }
 
         li {
             margin-bottom: 10px;
             font-size: 12px;
         }
+
         .errorlist {
             text-align: center;
             margin-bottom: 20px;
@@ -39,27 +41,31 @@
 
 {% block body %}
 
-            <div class="container">
-                <form method="post">
-                <h1 id="title">Log In</h1>
-                {% if messages %}
-                    <ul class="messages">
+    <div class="container">
+        <form method="post">
+            <h1 id="title">Log In</h1>
+            {% if messages %}
+                <ul class="messages">
                     {% for message in messages %}
                         <li id="message" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if error %}
-                    <h2 id="error">{{error}}</h2>
-                {% endif %}
+                </ul>
+            {% endif %}
+            {% if error %}
+                <h2 id="error">{{ error }}</h2>
+            {% endif %}
 
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Log In</button>
-                <a href="{% url 'authentication:register' %}"><button type="button" class="btn btn-primary">Register</button></a>
-                <a href="{% url 'authentication:password_reset' %}"><button type="button" class="btn btn-primary">Forgot password</button></a>
-             </form>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <a href="{% url 'authentication:register' %}">
+                <button type="button" class="btn btn-primary">Register</button>
+            </a>
+            <a href="{% url 'authentication:password_reset' %}">
+                <button type="button" class="btn btn-primary">Forgot password</button>
+            </a>
+        </form>
 
-            </div>
+    </div>
 
 {% endblock %}
