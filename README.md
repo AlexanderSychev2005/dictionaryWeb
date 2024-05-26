@@ -1,6 +1,6 @@
 # Online dictionary project, create with Django Framework
 ## How to prepare project:
-1) 
+1) Import dependencies `pip install -r requirements.txt`
 ## How to run project:
 1) Make migrations `python manage.py makemigration`
 2) Apply migrations `python manage.py migrate`
