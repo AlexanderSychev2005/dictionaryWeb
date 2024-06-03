@@ -39,9 +39,11 @@
                 <a href="{% url 'language:view_languages' %}">
                     <button class="btn btn-primary">All languages</button>
                 </a>
-                <a href="{% url 'language:create_language' %}">
-                    <button class="btn btn-primary">Create language</button>
-                </a>
+                {% if request.user.is_admin %}
+                    <a href="{% url 'language:create_language' %}">
+                        <button class="btn btn-primary">Create language</button>
+                    </a>
+                {% endif %}
             </div>
 
         </div>
