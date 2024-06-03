@@ -13,6 +13,7 @@ class TranslationForm(forms.ModelForm):
         initial_word = Word.objects.get(id=word_id)
 
         self.fields['source_word'].initial = initial_word
+        self.fields['source_word'].disabled = True
 
     class Meta:
         model = Translation
