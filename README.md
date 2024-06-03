@@ -1,6 +1,7 @@
 # Online dictionary project, create with Django Framework
 ## How to prepare project:
 1) Import dependencies `pip install -r requirements.txt`
+2) Make a file .env and copy all settings from .env.example and fill them with your own crudentials.
 ## How to run project:
 1) Make migrations `python manage.py makemigration`
 2) Apply migrations `python manage.py migrate`
