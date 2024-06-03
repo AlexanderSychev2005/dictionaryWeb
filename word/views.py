@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 
 from dictionary.models import Dictionary
-from .forms import WordForm
+from .forms import WordForm, WordEditForm
 from .models import Word
 
 
@@ -39,12 +39,12 @@ def update_word(request, word_id):
     word = Word.get_by_id(word_id)
 
     if request.method == 'POST':
-        form = WordForm(request.POST, instance=word)
+        form = WordEditForm(request.POST, instance=word)
         if form.is_valid():
             form.save()
             return redirect('word:view_word', word_id=word_id)
 
-    form = WordForm(instance=word)
+    form = WordEditForm(instance=word)
     return render(request, 'word/edit_word.html',
                   {'form': form})
 

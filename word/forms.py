@@ -24,7 +24,9 @@ class WordEditForm(forms.ModelForm):
         instance = kwargs.get('instance')
         if instance:
             self.fields['text'].initial = instance.text
+            self.fields['text'].disabled = True
             self.fields['language'].initial = instance.language
+            self.fields['language'].disabled = True
             self.fields['translations'].queryset = Translation.objects.all()
             self.fields['translations'].initial = instance.translations.all()
 
